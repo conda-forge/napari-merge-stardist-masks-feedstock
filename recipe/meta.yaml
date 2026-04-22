@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-merge-stardist-masks-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-merge-stardist-masks-{{ version }}.tar.gz
   sha256: 311e17c5481f0b2c5733ae8167f773c5149759b25d2b2854647cf1491669e47d
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   script_env:
     - QT_QPA_PLATFORM=offscreen
 
 requirements:
   host:
     - pip
-    - python >=3.8,<3.11
+    - python {{ python_min }}
     - setuptools >=42.0.0
     - setuptools-scm
   run:
@@ -27,7 +27,7 @@ requirements:
     - magicgui
     - merge-stardist-masks >=0.1.0
     - numpy
-    - python >=3.8,<3.11
+    - python >={{ python_min }},<3.11
     - qtpy
     - stardist-napari >=2022.7.5
 
@@ -40,6 +40,7 @@ test:
   requires:
     - pip
     - pyqt
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/napari-merge-stardist-masks
